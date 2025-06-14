@@ -6,6 +6,8 @@ import br.com.bank.service.CustomerUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class CustomerUseCaseImpl implements CustomerUseCase {
@@ -19,7 +21,16 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 
     @Override
     public String sendRequest(String document) {
-        //External call to request card queue
+        Optional<Customer> customer = this.customerRepository.findByDocument(document);
+        try {
+            Customer entity = customer.get();
+            int req = entity.getRequest();
+            entity.setRequest(req + 1);
+            this.customerRepository.save(entity);
+        } catch (Exception ex){
+            return "customer not found";
+        }
+
         return "Card requested successfully";
     }
 }

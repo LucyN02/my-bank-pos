@@ -6,10 +6,8 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 public class CustomerRequest {
 
-    private final String email;
-    private final String document;
+    private String email;
+    private String document;
 }

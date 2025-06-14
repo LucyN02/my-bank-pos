@@ -20,7 +20,7 @@ public class CustomerController {
         createCustomer(customerRequest);
     }
 
-    @PostMapping("/request-card/{document}")
+    @GetMapping("/request-card/{document}")
     public String requestCard(@PathVariable String document)   {
             return this.customerUseCase.sendRequest(document);
     }
