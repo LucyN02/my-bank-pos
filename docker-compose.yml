@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Serviço do PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: my-bank-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ms-customer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Serviço do RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: rabbitmq-my-bank
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+  # Opcional: Serviço da sua aplicação que se conecta ao RabbitMQ e PostgreSQL
+  # app:
+  #   build: . # Constrói a imagem a partir do Dockerfile no diretório atual
+  #   container_name: my_app
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8000:8000" # Exemplo: mapeia a porta da sua aplicação
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy # Garante que o DB esteja saudável antes de iniciar a app
+  #     rabbitmq:
+  #       condition: service_started # Garante que o RabbitMQ esteja iniciado
+  #   environment:
+  #     DATABASE_URL: postgresql://${DB_USER:-myuser}:${DB_PASSWORD:-mypassword}@db:5432/${DB_NAME:-mydatabase}
+  #     RABBITMQ_URL: amqp://${RABBITMQ_USER:-guest}:${RABBITMQ_PASS:-guest}@rabbitmq:5672/
+
+volumes:
+  db_data:
+  rabbitmq_data:

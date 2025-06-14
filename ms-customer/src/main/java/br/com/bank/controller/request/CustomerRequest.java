@@ -1,7 +1,6 @@
 package br.com.bank.controller.request;
 
 
-import br.com.bank.model.Customer;
 import lombok.*;
 
 @Getter

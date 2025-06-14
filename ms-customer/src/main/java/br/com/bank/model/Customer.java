@@ -8,6 +8,8 @@ import lombok.*;
 @Setter
 @Table(name = "tb_customers")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
 
     @Id
