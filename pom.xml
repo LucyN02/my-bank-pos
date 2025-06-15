@@ -11,6 +11,7 @@
   <name>my-bank</name>
   <modules>
     <module>ms-customer</module>
+      <module>ms-card</module>
   </modules>
 
   <properties>

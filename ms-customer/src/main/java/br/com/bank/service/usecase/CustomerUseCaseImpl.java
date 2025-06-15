@@ -23,9 +23,9 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     public String sendRequest(String document) {
         Optional<Customer> customer = this.customerRepository.findByDocument(document);
         try {
-            Customer entity = customer.get();
-            int req = entity.getRequest();
-            entity.setRequest(req + 1);
+            Customer entity = customer.orElseThrow();
+            int req = entity.getRequests();
+            entity.setRequests(req + 1);
             this.customerRepository.save(entity);
         } catch (Exception ex){
             return "customer not found";

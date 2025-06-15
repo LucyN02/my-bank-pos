@@ -17,5 +17,5 @@ public class Customer {
     private Long id;
     private String email;
     private String document;
-    private int request;
+    private int requests;
 }
