@@ -4,3 +4,10 @@ create table tb_customers(
  email VARCHAR(100)  not null,
  requests int not null
 );
+
+create table tb_cards (
+ id serial PRIMARY KEY,
+ name VARCHAR (20) not NULL,
+ flag VARCHAR(100)  not null,
+ card_limits decimal  not null
+);
