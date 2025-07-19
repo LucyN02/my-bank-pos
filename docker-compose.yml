@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   # Serviço do PostgreSQL
-  db:
+  db-bank:
     image: postgres:15-alpine
     container_name: my-bank-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ms-customer
+      POSTGRES_DB: bank
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
@@ -33,22 +33,6 @@ services:
       - "15672:15672"
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-  # Opcional: Serviço da sua aplicação que se conecta ao RabbitMQ e PostgreSQL
-  # app:
-  #   build: . # Constrói a imagem a partir do Dockerfile no diretório atual
-  #   container_name: my_app
-  #   restart: unless-stopped
-  #   ports:
-  #     - "8000:8000" # Exemplo: mapeia a porta da sua aplicação
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy # Garante que o DB esteja saudável antes de iniciar a app
-  #     rabbitmq:
-  #       condition: service_started # Garante que o RabbitMQ esteja iniciado
-  #   environment:
-  #     DATABASE_URL: postgresql://${DB_USER:-myuser}:${DB_PASSWORD:-mypassword}@db:5432/${DB_NAME:-mydatabase}
-  #     RABBITMQ_URL: amqp://${RABBITMQ_USER:-guest}:${RABBITMQ_PASS:-guest}@rabbitmq:5672/
-
 volumes:
   db_data:
   rabbitmq_data:
