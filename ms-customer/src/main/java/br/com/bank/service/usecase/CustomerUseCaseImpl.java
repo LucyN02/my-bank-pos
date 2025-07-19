@@ -28,15 +28,13 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     @Override
     public String sendRequest(String document) {
         Optional<Customer> customer = this.customerRepository.findByDocument(document);
-        try {
-            Customer entity = customer.orElseThrow();
-            int req = entity.getRequests();
-            entity.setRequests(req + 1);
-            this.customerRepository.save(entity);
-            this.producerMessage.publish(document);
-        } catch (Exception ex){
-            return "customer not found";
-        }
+        if (customer.isEmpty()) return  "customer not found";
+
+        Customer entity = customer.get();
+        int req = customer.get().getRequests();
+        entity.setRequests(req + 1);
+        this.customerRepository.save(entity);
+        this.producerMessage.publish(document);
 
         return "Card requested successfully";
     }
