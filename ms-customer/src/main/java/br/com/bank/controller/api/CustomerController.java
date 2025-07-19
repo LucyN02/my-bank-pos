@@ -16,8 +16,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public void create(@RequestBody CustomerRequest customerRequest) {
-        createCustomer(customerRequest);
+    public String create(@RequestBody CustomerRequest customerRequest) {
+        return createCustomer(customerRequest);
     }
 
     @GetMapping("/request-card/{document}")
@@ -25,8 +25,8 @@ public class CustomerController {
             return this.customerUseCase.sendRequest(document);
     }
     
-    private void createCustomer(CustomerRequest customerRequest) {
-        this.customerUseCase.createCustomer(Customer.builder()
+    private String createCustomer(CustomerRequest customerRequest) {
+        return this.customerUseCase.createCustomer(Customer.builder()
                         .email(customerRequest.getEmail())
                         .document(customerRequest.getDocument())
                 .build());

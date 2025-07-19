@@ -15,8 +15,12 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     private final CustomerRepository customerRepository;
 
     @Override
-    public void createCustomer(Customer customer) {
-        this.customerRepository.save(customer);
+    public String createCustomer(Customer customer) {
+        Optional<Customer> customerDocument = customerRepository.findByDocument(customer.getDocument());
+            if (customerDocument.isPresent()) return "customer already exists";
+
+            this.customerRepository.save(customer);
+            return "customer created successfully";
     }
 
     @Override
