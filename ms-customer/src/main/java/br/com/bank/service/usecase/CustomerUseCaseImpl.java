@@ -1,5 +1,6 @@
 package br.com.bank.service.usecase;
 
+import br.com.bank.external.ProducerMessage;
 import br.com.bank.model.Customer;
 import br.com.bank.repository.CustomerRepository;
 import br.com.bank.service.CustomerUseCase;
@@ -12,6 +13,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CustomerUseCaseImpl implements CustomerUseCase {
 
+    private final ProducerMessage producerMessage;
     private final CustomerRepository customerRepository;
 
     @Override
@@ -31,6 +33,7 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
             int req = entity.getRequests();
             entity.setRequests(req + 1);
             this.customerRepository.save(entity);
+            this.producerMessage.publish(document);
         } catch (Exception ex){
             return "customer not found";
         }
