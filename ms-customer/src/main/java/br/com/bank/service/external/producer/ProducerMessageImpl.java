@@ -1,4 +1,4 @@
-package br.com.bank.external;
+package br.com.bank.service.external.producer;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +15,9 @@ public class ProducerMessageImpl implements ProducerMessage {
 
     public void publish(String document) {
         Message message = new Message(document.getBytes());
-        log.info("Publishing : Payload {} / Queue {}", document, "requestCardTest");
+        log.info("Publishing : Payload {} / Queue {}", document, "requestCard");
         this.rabbitTemplate.send("requestCard",message);
-        log.info("Published : Payload {} / Queue {} ", document, "requestCardTest");
+        log.info("Published : Payload {} / Queue {} ", document, "requestCard");
     }
 
 }

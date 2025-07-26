@@ -16,17 +16,17 @@ public class CustomerController {
     }
 
     @PostMapping
-    public String create(@RequestBody CustomerRequest customerRequest) {
-        return createCustomer(customerRequest);
+    public void create(@RequestBody CustomerRequest customerRequest) {
+        createCustomer(customerRequest);
     }
 
-    @GetMapping("/request-card/{document}")
-    public String requestCard(@PathVariable String document)   {
+    @GetMapping("/requests-card")
+    public String requestCard(@RequestParam(name = "document") String document) throws InterruptedException {
             return this.customerUseCase.sendRequest(document);
     }
-    
-    private String createCustomer(CustomerRequest customerRequest) {
-        return this.customerUseCase.createCustomer(Customer.builder()
+
+    private void createCustomer(CustomerRequest customerRequest) {
+        this.customerUseCase.createCustomer(Customer.builder()
                         .email(customerRequest.getEmail())
                         .document(customerRequest.getDocument())
                 .build());
