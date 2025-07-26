@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8086
 spring:
   application:
     name: ms-card
@@ -7,7 +7,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     password: postgres
     username: postgres
-    url: jdbc:postgresql://localhost:5432/ms-card
+    url: jdbc:postgresql://localhost:5431/ms-card
   jpa:
     properties:
       hibernate:
