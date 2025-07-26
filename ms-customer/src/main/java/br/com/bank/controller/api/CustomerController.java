@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
     @GetMapping("/requests-card")
-    public String requestCard(@RequestParam(name = "document") String document)   {
+    public String requestCard(@RequestParam(name = "document") String document) throws InterruptedException {
             return this.customerUseCase.sendRequest(document);
     }
 
