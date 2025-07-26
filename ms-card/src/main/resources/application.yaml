@@ -3,15 +3,20 @@ server:
 spring:
   application:
     name: ms-card
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   datasource:
     driver-class-name: org.postgresql.Driver
     password: postgres
     username: postgres
-    url: jdbc:postgresql://localhost:5431/ms-card
+    url: jdbc:postgresql://localhost:5432/ms-card
   jpa:
-    properties:
-      hibernate:
-        ddl-auto: none
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
     show-sql: true

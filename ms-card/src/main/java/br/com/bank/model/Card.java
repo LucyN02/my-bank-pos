@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Builder
 @Getter
 @Setter
+@Table(name = "tb_cards")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,5 +23,5 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private Flags flag;
 
-    private BigDecimal card_limits;
+    private BigDecimal limits;
 }

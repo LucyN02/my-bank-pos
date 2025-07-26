@@ -13,6 +13,6 @@ public class ReceiveRequestCardImpl implements  ReceiveRequestCard{
     @Override
     @RabbitListener(queues = "requestCard")
     public void listen(String message) {
-        System.out.println(message);
+       System.out.println(message);
     }
 }

@@ -23,7 +23,7 @@ public class CardController {
         return (Card.builder()
                 .name(cardRequest.getName())
                 .flag(Flags.valueOf(cardRequest.getFlag()))
-                .card_limits(cardRequest.getCard_limit())
+                .limits(cardRequest.getCard_limit())
                 .build());
     }
 }
